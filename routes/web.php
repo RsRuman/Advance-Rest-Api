@@ -19,6 +19,9 @@ Route::get('/', function () {
 });
 
 Route::get('/post', function () {
-    $post = Post::find(1);
-    echo $post->comments;
+    $post = Post::find(52);
+    if (!$post){
+        return 'no post!';
+    }
+    return $post;
 });

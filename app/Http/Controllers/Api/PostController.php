@@ -8,13 +8,19 @@ use App\Http\Resources\PostResource;
 use App\Models\Post;
 use http\Env\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
 
+
     public function index()
     {
-        return  PostCollection::collection(Post::all());
+
+        $post = Cache::remember('cache', 20, function (){
+           return Post::all();
+        });
+        return  PostCollection::collection($post);
 
     }
 
